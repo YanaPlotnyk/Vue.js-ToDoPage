@@ -1,11 +1,13 @@
 <template>
   <li>
-    <span v-bind:class="{done: todo.completed}">
+    <span v-bind:class="{ done: todo.completed }">
       <input type="checkbox" v-on:change="todo.completed = !todo.completed" />
-      <strong>{{ index+1 }}</strong>
-      {{ todo.title }}
+      <strong>{{ index + 1 }}</strong>
+      {{ todo.title | upperCase }}
     </span>
-    <button class="remove-btn" v-on:click="$emit('remove-todo', todo.id)">&times;</button>
+    <button class="remove-btn" v-on:click="$emit('remove-todo', todo.id)">
+      &times;
+    </button>
   </li>
 </template>
 
@@ -14,10 +16,15 @@ export default {
   props: {
     todo: {
       type: Object,
-      required: true
+      required: true,
     },
-    index: Number
-  }
+    index: Number,
+  },
+  filters: {
+    upperCase(value) {
+      return value.slice(0, 1).toUpperCase() + value.slice(1);
+    },
+  },
 };
 </script>
 
